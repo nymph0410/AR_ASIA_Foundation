@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 using System.Collections.Generic;
 
 
@@ -22,7 +23,11 @@ public class ARManger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             pointMouse = Input.mousePosition;
-            print(pointMouse);
+
+            if (arManger.Raycast(pointMouse,hits,TrackableType.PlaneWithinPolygon))
+            {
+                Instantiate(obj, hits[0].pose.position, Quaternion.identity);
+            }
         }
     }
     private void Update()
